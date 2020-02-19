@@ -1,8 +1,12 @@
 {
-    "name": "mb-prep-shared-ui",
+    "name": "cra-shared-ui-scripts",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "bin": {
+        "prep-shared-ui": "./scripts/prep-shared-ui.js",
+        "finalize-shared-ui": "./scripts/finalize-shared-ui.js"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "bump-version": "standard-version"
@@ -19,7 +23,10 @@
         "@commitlint/config-conventional": "^8.3.4",
         "commitizen": "^4.0.3",
         "cz-conventional-changelog": "^3.1.0",
+        "fs-extra": "^8.1.0",
         "husky": "^4.2.2",
+        "minimist": "^1.2.0",
+        "node-fetch": "^2.6.0",
         "standard-version": "^7.1.0"
     }
 }
