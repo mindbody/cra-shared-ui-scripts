@@ -10,12 +10,6 @@
  * This script will create a directory like:
  * `https://some-cdn.com/ui/my-app/1.0.0/{all files in the "build" directory}`
  *
- * It will also overwrite latest.json:
- * `https://some-cdn.com/ui/my-app/latest.json`
-
- *
- * The latest.json file will contain `{ "version": "1.0.0" }`
- *
  * You consume the app.js file which will load all the entry points found in the outputed react application manifest
  */
 const fs = require('fs-extra');
@@ -41,6 +35,7 @@ async function finalizeSharedUi() {
     const entryPoints = assetManifest.entrypoints.map(entry => entry);
     const cdn = await getEnvironmentCdn();
 
+    // app.js file to be referenced by the consuming application
     const appJs = `[${entryPoints.map(entry => `'${entry}'`).join(',')}].forEach(function(entry) {
     var script = document.createElement('script');
     script.src = '${cdn}/${version}/' + entry;
@@ -57,7 +52,7 @@ async function finalizeSharedUi() {
     // copy over changelog
     await fs.copyFile(`${userDir}/CHANGELOG.md`, `${buildDir}/CHANGELOG.md`);
 
-    // Move all existing files in build directory into versioned folder
+    // Finally move all existing files in build directory into versioned folder
     await fs.move(buildDir, initialCommitDir);
     await fs.move(initialCommitDir, `${userDir}/build/${version}`);
 

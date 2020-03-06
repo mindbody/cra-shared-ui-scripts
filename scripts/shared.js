@@ -3,6 +3,8 @@ const fs = require('fs-extra');
 function getEnvironmentCdn() {
     return new Promise(async (resolve, reject) => {
         const userDir = process.cwd();
+
+        // Read the `.env` file in root of repo and return for the value of `PUBLIC_URL`
         const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8');
         try {
             const cdn = userEnv
