@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.1.5...v1.1.6) (2020-03-09)
+
+
+### Bug Fixes
+
+* added logging ([0c1d3bb](https://github.com/mindbody/cra-shared-ui-scripts/commit/0c1d3bbad4b046cb54398cb7b64a3b301b961bb0))
+
 ### [1.1.5](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.1.4...v1.1.5) (2020-03-09)
 
 
