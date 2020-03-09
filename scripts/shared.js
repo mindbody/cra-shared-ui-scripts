@@ -17,6 +17,7 @@ function getEnvironmentCdn() {
 
             resolve(cdn);
         } catch (e) {
+            console.error(e);
             process.exit(1);
         }
     });
