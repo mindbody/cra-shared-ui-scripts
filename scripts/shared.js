@@ -5,7 +5,8 @@ function getEnvironmentCdn() {
         try {
             const userDir = process.cwd();
             // Read the `.env` file in root of repo and return for the value of `PUBLIC_URL`
-            const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8', e => {
+            const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8', (e, data) => {
+                console.log(e, data);
                 if (e) {
                     throw new Error('Make sure your pipeline creates a .env file with the PUBLIC_URL set');
                 }
