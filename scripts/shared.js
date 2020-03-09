@@ -2,11 +2,10 @@ const fs = require('fs-extra');
 
 function getEnvironmentCdn() {
     return new Promise(async (resolve, reject) => {
-        const userDir = process.cwd();
-
-        // Read the `.env` file in root of repo and return for the value of `PUBLIC_URL`
-        const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8', (error, data) => reject({ error, data }));
         try {
+            const userDir = process.cwd();
+            // Read the `.env` file in root of repo and return for the value of `PUBLIC_URL`
+            const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8');
             const cdn = userEnv
                 .match(/PUBLIC_URL=.*/)[0]
                 .replace(/PUBLIC_URL=/, '')
@@ -14,7 +13,8 @@ function getEnvironmentCdn() {
 
             resolve(cdn);
         } catch (e) {
-            throw new Error('Make sure your pipeline creates a .env file with the PUBLIC_URL set');
+            new Error('Make sure your pipeline creates a .env file with the PUBLIC_URL set');
+            exit(1);
         }
     });
 }
