@@ -1,6 +1,6 @@
 {
     "name": "cra-shared-ui-scripts",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Scripts for CI pipelines to create versioned folders of your react application for deploying to a CDN",
     "main": "index.js",
     "bin": {
@@ -8,7 +8,7 @@
         "finalize-shared-ui": "./scripts/finalize-shared-ui.js"
     },
     "scripts": {
-        "bump-version": "standard-version"
+        "version:bump": "standard-version"
     },
     "author": "Cameron Zaas",
     "license": "ISC",
