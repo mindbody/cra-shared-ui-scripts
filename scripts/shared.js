@@ -5,7 +5,7 @@ function getEnvironmentCdn() {
         const userDir = process.cwd();
 
         // Read the `.env` file in root of repo and return for the value of `PUBLIC_URL`
-        const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8');
+        const userEnv = await fs.readFile(`${userDir}/.env`, 'utf8', (error, data) => reject({ error, data }));
         try {
             const cdn = userEnv
                 .match(/PUBLIC_URL=.*/)[0]
