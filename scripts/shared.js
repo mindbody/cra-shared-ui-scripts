@@ -14,7 +14,7 @@ function getEnvironmentCdn() {
             resolve(cdn);
         } catch (e) {
             new Error('Make sure your pipeline creates a .env file with the PUBLIC_URL set');
-            exit(1);
+            process.exit(1);
         }
     });
 }

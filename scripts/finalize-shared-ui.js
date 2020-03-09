@@ -19,7 +19,7 @@ try {
     finalizeSharedUi();
 } catch (e) {
     console.error(e);
-    exit(1);
+    process.exit(1);
 }
 
 async function finalizeSharedUi() {
