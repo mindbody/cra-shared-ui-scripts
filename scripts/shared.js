@@ -14,7 +14,7 @@ function getEnvironmentCdn() {
             resolve(cdn);
         } catch (e) {
             console.error(e);
-            console.error('Please make sure the `.env` file exists and contains `PUBLIC_URL` path');
+            console.error('=== Make sure the `.env` file exists and contains `PUBLIC_URL` path ===');
             process.exit(1);
         }
     });
