@@ -48,9 +48,13 @@ async function finalizeSharedUi() {
     // ensure and write app.js
     await fs.ensureFile(appJsPath);
     await fs.writeFile(appJsPath, appJs);
-
-    // copy over changelog
-    await fs.copyFile(`${userDir}/CHANGELOG.md`, `${buildDir}/CHANGELOG.md`);
+    try {
+        // copy over changelog
+        await fs.copyFile(`${userDir}/CHANGELOG.md`, `${buildDir}/CHANGELOG.md`);
+    } catch (e) {
+        console.error('=== Run `yarn version:bump` to create a CHANGELOG.md ===');
+        process.exit(1);
+    }
 
     // Finally move all existing files in build directory into versioned folder
     await fs.move(buildDir, initialCommitDir);
