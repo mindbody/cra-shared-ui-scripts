@@ -32,14 +32,24 @@ async function finalizeSharedUi() {
     // Build dir based on create-react-app
     const buildDir = `${userDir}/build`;
     const assetManifest = await fs.readJSON(`${buildDir}/asset-manifest.json`);
-    const entryPoints = assetManifest.entrypoints.map(entry => entry);
+    const entryPoints = assetManifest.entrypoints.map((entry) => entry);
     const cdn = await getEnvironmentCdn();
 
     // app.js file to be referenced by the consuming application
-    const appJs = `[${entryPoints.map(entry => `'${entry}'`).join(',')}].forEach(function(entry) {
+    const appJs = `[${entryPoints
+        .map((entry) => `'${entry}'`)
+        .join(',')}].forEach(function(entry) {
     var script = document.createElement('script');
-    script.src = '${cdn}/${version}/' + entry;
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    if (entry.includes('.css')) {
+        link.href = script.src = '${cdn}/${version}/' + entry;
+        document.getElementsByTagName('head')[0].appendChild(link);
+    } else {
+        script.src = script.src = '${cdn}/${version}/' + entry;
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
 });`;
 
     // name file and location
@@ -50,9 +60,14 @@ async function finalizeSharedUi() {
     await fs.writeFile(appJsPath, appJs);
     try {
         // copy over changelog
-        await fs.copyFile(`${userDir}/CHANGELOG.md`, `${buildDir}/CHANGELOG.md`);
+        await fs.copyFile(
+            `${userDir}/CHANGELOG.md`,
+            `${buildDir}/CHANGELOG.md`,
+        );
     } catch (e) {
-        console.error('=== Run `yarn version:bump` to create a CHANGELOG.md ===');
+        console.error(
+            '=== Run `yarn version:bump` to create a CHANGELOG.md ===',
+        );
         process.exit(1);
     }
 
