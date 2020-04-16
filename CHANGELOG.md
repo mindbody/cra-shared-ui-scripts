@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.1.9...v1.2.1) (2020-04-16)
+
+
+### Bug Fixes
+
+* exiting early as promise doesn't handle rejection error ([0734175](https://github.com/mindbody/cra-shared-ui-scripts/commit/0734175601a6bae6033e17008db0875e4432c677))
+
 ## 1.2.0 (2020-04-07)
 
 
