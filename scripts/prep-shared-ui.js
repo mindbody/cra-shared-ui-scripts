@@ -20,7 +20,8 @@ try {
 async function prepSharedUi() {
     const canDeploy = await canDeployCurrentVersion();
     if (!canDeploy) {
-        throw Error('It looks like the version already exists. Did you update your version?');
+        console.error('It looks like the version already exists. Did you update your version?');
+        process.exit(1);
     }
 
     console.log('Completed confirming version can be deployed');
@@ -36,12 +37,14 @@ async function prepSharedUi() {
  * - Otherwise create it and set `PUBLIC_URL=`
  */
 function canDeployCurrentVersion() {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
         const userDir = process.cwd();
         const { version } = await fs.readJson(`${userDir}/package.json`);
         const cdn = await getEnvironmentCdn();
 
-        const request = await fetch(`${cdn}/${version}/CHANGELOG.md`);
+        console.log(`Checking for "${cdn}/${version}/app.js"`);
+
+        const request = await fetch(`${cdn}/${version}/app.js`);
         const response = await request.text();
 
         resolve(response.trim() === 'Not found');
