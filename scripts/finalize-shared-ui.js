@@ -13,7 +13,8 @@
  * You consume the app.js file which will load all the entry points found in the outputed react application manifest
  */
 const fs = require('fs-extra');
-const getEnvironmentCdn = require('./shared.js').getEnvironmentCdn;
+const shared = require('./shared.js');
+const { getEnvironmentCdn, removeVersionFromEnvFile } = shared;
 
 try {
     finalizeSharedUi();
@@ -36,18 +37,16 @@ async function finalizeSharedUi() {
     const cdn = await getEnvironmentCdn();
 
     // app.js file to be referenced by the consuming application
-    const appJs = `[${entryPoints
-        .map((entry) => `'${entry}'`)
-        .join(',')}].forEach(function(entry) {
-    var script = document.createElement('script');
-    var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
+    const appJs = `[${entryPoints.map((entry) => `'${entry}'`).join(',')}].forEach(function(entry) {
     if (entry.includes('.css')) {
-        link.href = script.src = '${cdn}/${version}/' + entry;
+        var link = document.createElement('link');
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
+        link.href = '${cdn}' + entry;
         document.getElementsByTagName('head')[0].appendChild(link);
     } else {
-        script.src = script.src = '${cdn}/${version}/' + entry;
+        var script = document.createElement('script');
+        script.src = '${cdn}' + entry;
         document.getElementsByTagName('head')[0].appendChild(script);
     }
 });`;
@@ -60,14 +59,9 @@ async function finalizeSharedUi() {
     await fs.writeFile(appJsPath, appJs);
     try {
         // copy over changelog
-        await fs.copyFile(
-            `${userDir}/CHANGELOG.md`,
-            `${buildDir}/CHANGELOG.md`,
-        );
+        await fs.copyFile(`${userDir}/CHANGELOG.md`, `${buildDir}/CHANGELOG.md`);
     } catch (e) {
-        console.error(
-            '=== Run `yarn version:bump` to create a CHANGELOG.md ===',
-        );
+        console.error('=== Run `yarn version:bump` to create a CHANGELOG.md ===');
         process.exit(1);
     }
 
@@ -81,4 +75,7 @@ async function finalizeSharedUi() {
     await fs.writeJSON(latestJsonPath, {
         version,
     });
+
+    // finally remove version from .env file
+    await removeVersionFromEnvFile();
 }
