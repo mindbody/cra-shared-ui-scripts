@@ -8,7 +8,8 @@
 
 const fetch = require('node-fetch');
 const fs = require('fs-extra');
-const getEnvironmentCdn = require('./shared.js').getEnvironmentCdn;
+const shared = require('./shared.js');
+const { getEnvironmentCdn, addVersionToEnvFile } = shared;
 
 try {
     prepSharedUi();
@@ -19,6 +20,9 @@ try {
 
 async function prepSharedUi() {
     const canDeploy = await canDeployCurrentVersion();
+    // add the version in the env file
+    await addVersionToEnvFile();
+
     if (!canDeploy) {
         console.error('It looks like the version already exists. Did you update your version?');
         process.exit(1);
