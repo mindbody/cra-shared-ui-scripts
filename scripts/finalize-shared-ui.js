@@ -69,13 +69,6 @@ async function finalizeSharedUi() {
     await fs.move(buildDir, initialCommitDir);
     await fs.move(initialCommitDir, `${userDir}/build/${version}`);
 
-    // Update latest JSON in build directory (not nested)
-    const latestJsonPath = `${userDir}/build/latest.json`;
-    await fs.ensureFile(latestJsonPath);
-    await fs.writeJSON(latestJsonPath, {
-        version,
-    });
-
     // finally remove version from .env file
     await removeVersionFromEnvFile();
 }
