@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.1.0...v1.3.0) (2020-04-29)
+
+
+### Features
+
+* added support for custom env file ([8517dde](https://github.com/mindbody/cra-shared-ui-scripts/commit/8517dde267a446d0a302aa187406d3a292c28317))
+
+
+### Bug Fixes
+
+* added error message before exiting ([fdb4003](https://github.com/mindbody/cra-shared-ui-scripts/commit/fdb4003505e457bf4e609aee1096a00d07529453))
+* added logging ([0c1d3bb](https://github.com/mindbody/cra-shared-ui-scripts/commit/0c1d3bbad4b046cb54398cb7b64a3b301b961bb0))
+* added process.exit to the exit code ([6350681](https://github.com/mindbody/cra-shared-ui-scripts/commit/63506814711ff76c90e9acde8238169d5ab0a71c))
+* adding version to env file then removing it during prep and finalize steps ([6940a21](https://github.com/mindbody/cra-shared-ui-scripts/commit/6940a214014f4bce761a9bf49268c6c02d425ceb))
+* exiting early as promise doesn't handle rejection error ([0734175](https://github.com/mindbody/cra-shared-ui-scripts/commit/0734175601a6bae6033e17008db0875e4432c677))
+* handling rejection error if file not found ([957dc4b](https://github.com/mindbody/cra-shared-ui-scripts/commit/957dc4bb029fa9243a92abb9e6bdca70617ba0e9))
+* if changelog doesnt exist, exit early ([22a7cf4](https://github.com/mindbody/cra-shared-ui-scripts/commit/22a7cf440c6180b56d063bcc7941d99545e2bd8e))
+* logging error message ([c17b07d](https://github.com/mindbody/cra-shared-ui-scripts/commit/c17b07da1cec6002e276e6776c5199485be26676))
+* logging error message when it fails ([fe2afdf](https://github.com/mindbody/cra-shared-ui-scripts/commit/fe2afdfb17128fd69bc35258db0e339fd0878520))
+* making message stand out more ([6417296](https://github.com/mindbody/cra-shared-ui-scripts/commit/6417296ebd0ace5f64fec95abbca478e3fc688a6))
+* moving all reads into try/catch to catch the error and exit early ([28c44f1](https://github.com/mindbody/cra-shared-ui-scripts/commit/28c44f1e73d973c902ab17859e72d0aad54fb117))
+
 ### [1.2.3](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.2.2...v1.2.3) (2020-04-20)
 
 ### [1.2.2](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.2.1...v1.2.2) (2020-04-17)
