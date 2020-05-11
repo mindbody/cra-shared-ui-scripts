@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.2.3...v1.4.0) (2020-05-11)
+
+
+### Features
+
+* added support for custom env file ([8517dde](https://github.com/mindbody/cra-shared-ui-scripts/commit/8517dde267a446d0a302aa187406d3a292c28317))
+* stashing enviornment files and overwriting main env file so react builds with correct script and then replacing the modified version after ([db61e6f](https://github.com/mindbody/cra-shared-ui-scripts/commit/db61e6fbf8e0f20fc04279055c4c42cff83b1307))
+
+
+### Bug Fixes
+
+* added variables and resolving promise after copying files ([ee68e4f](https://github.com/mindbody/cra-shared-ui-scripts/commit/ee68e4ff470bd8d04e08b154822b5f24490a0ea6))
+
 ## [1.3.0](https://github.com/mindbody/cra-shared-ui-scripts/compare/v1.1.0...v1.3.0) (2020-04-29)
 
 
