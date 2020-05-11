@@ -14,7 +14,7 @@
  */
 const fs = require('fs-extra');
 const shared = require('./shared.js');
-const { getEnvironmentCdn, removeVersionFromEnvFile } = shared;
+const { getEnvironmentCdn, replaceModifiedEnvFiles } = shared;
 
 try {
     finalizeSharedUi();
@@ -69,6 +69,6 @@ async function finalizeSharedUi() {
     await fs.move(buildDir, initialCommitDir);
     await fs.move(initialCommitDir, `${userDir}/build/${version}`);
 
-    // finally remove version from .env file
-    await removeVersionFromEnvFile();
+    // finally replace modified version from .env file
+    await replaceModifiedEnvFiles();
 }
