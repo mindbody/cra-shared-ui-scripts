@@ -36,7 +36,6 @@ function addVersionToEnvFile() {
             const cdn = userEnv.match(/PUBLIC_URL=.*/)[0];
 
             await fs.writeFile(`${userDir}/.env`, userEnv.replace(cdn, `${cdn}${version}/`));
-
             resolve(cdn);
         } catch (e) {
             console.error(e);
@@ -49,6 +48,7 @@ function addVersionToEnvFile() {
 // Stash files so we don't override anything
 async function stashExistingEnvFiles() {
     return new Promise(async (resolve, reject) => {
+        const userDir = process.cwd();
         try {
             await fs.ensureDir(`${userDir}/__temp`);
             try {
@@ -57,6 +57,8 @@ async function stashExistingEnvFiles() {
             try {
                 await fs.copyFile(`${userDir}/.env.staging`, `${userDir}/__temp/.env.staging`);
             } catch (e) {}
+
+            resolve();
         } catch (e) {
             console.error(e);
             console.error('=== Failed to copy environment files ===');
@@ -68,6 +70,7 @@ async function stashExistingEnvFiles() {
 // Replace modified files with stashed files
 async function replaceModifiedEnvFiles() {
     return new Promise(async (resolve, reject) => {
+        const userDir = process.cwd();
         try {
             await fs.copyFile(`${userDir}/__temp/.env`, `${userDir}/.env`);
         } catch (e) {}
@@ -78,6 +81,8 @@ async function replaceModifiedEnvFiles() {
         try {
             await fs.remove(`${userDir}/__temp`);
         } catch (e) {}
+
+        resolve();
     });
 }
 
