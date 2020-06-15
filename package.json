@@ -1,6 +1,6 @@
 {
     "name": "cra-shared-ui-scripts",
-    "version": "1.4.1",
+    "version": "1.5.0",
     "description": "Scripts for CI pipelines to create versioned folders of your react application for deploying to a CDN",
     "main": "index.js",
     "bin": {
