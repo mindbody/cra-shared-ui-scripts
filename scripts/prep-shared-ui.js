@@ -26,11 +26,11 @@ async function prepSharedUi() {
 
     if (!canDeploy) {
         await replaceModifiedEnvFiles();
-        console.error('It looks like the version already exists. Did you update your version?');
+        console.error('=== It looks like the version already exists. Did you update your version? ===');
         process.exit(1);
     }
 
-    console.log('Completed confirming version can be deployed');
+    console.log('=== Completed confirming version can be deployed ===');
 }
 
 /**
@@ -48,11 +48,10 @@ function canDeployCurrentVersion() {
         const { version } = await fs.readJson(`${userDir}/package.json`);
         const cdn = await getEnvironmentCdn();
 
-        console.log(`Checking for "${cdn}/${version}/app.js"`);
+        console.log(`=== Checking for "${cdn}/${version}/app.js ==="`);
 
         const request = await fetch(`${cdn}/${version}/app.js`);
-        const response = await request.text();
 
-        resolve(response.trim() === 'Not found');
+        resolve(request.status === 404);
     });
 }
