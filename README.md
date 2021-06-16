@@ -43,3 +43,7 @@ _Note that the `finalize-shared-ui` will also copy over a `CHANGELOG.md` file so
 ## Recommendations
 
 You want to get started using this without worrying about setting it up when you're starting a new project? Use our create react app template `create-react-app some-app-name --template mb-shared-ui` then follow the steps in the readme to get started.
+
+## Other
+
+Proceed with caution: In the event the CDN is returning abnormal responses and you need to bypass the version check you can pass the flag `prep-shared-ui --dangerouslyBypassVersionCheck` as part of the build. Before you complete your PR be sure the version doesn't exist on the CDN manually.

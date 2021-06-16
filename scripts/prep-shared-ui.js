@@ -9,7 +9,9 @@
 const fetch = require('node-fetch');
 const fs = require('fs-extra');
 const shared = require('./shared.js');
-const { getEnvironmentCdn, addVersionToEnvFile, stashExistingEnvFiles, replaceModifiedEnvFiles } = shared;
+const { getEnvironmentCdn, addVersionToEnvFile, stashExistingEnvFiles, replaceModifiedEnvFiles, options } = shared;
+
+const { dangerouslyBypassVersionCheck = false } = options;
 
 try {
     prepSharedUi();
@@ -44,14 +46,22 @@ async function prepSharedUi() {
  */
 function canDeployCurrentVersion() {
     return new Promise(async (resolve) => {
-        const userDir = process.cwd();
-        const { version } = await fs.readJson(`${userDir}/package.json`);
-        const cdn = await getEnvironmentCdn();
+        if (dangerouslyBypassVersionCheck) {
+            console.warn('=== You are dangerously bypassing a version check which could wipe out existing versions, proceed with caution ===');
+            resolve(true);
+        } else {
+            const userDir = process.cwd();
+            const { version } = await fs.readJson(`${userDir}/package.json`);
+            const cdn = await getEnvironmentCdn();
 
-        console.log(`=== Checking for "${cdn}/${version}/app.js ==="`);
+            console.log(`=== Checking for "${cdn}/${version}/app.js ==="`);
 
-        const request = await fetch(`${cdn}/${version}/app.js`);
+            const request = await fetch(`${cdn}/${version}/app.js`);
 
-        resolve(request.status === 404);
+            console.log(`=== response ===`)
+            console.log(JSON.stringify(request, null, 2));
+
+            resolve(request.status === 404);
+        }
     });
 }
