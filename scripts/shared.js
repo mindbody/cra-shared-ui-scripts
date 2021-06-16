@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const commandLineArgs = require('command-line-args');
 
-const optionDefinitions = [{ name: 'env' }];
+const optionDefinitions = [{ name: 'env' }, { name: 'dangerouslyBypassVersionCheck', type: Boolean, defaultOption: false }];
 const options = commandLineArgs(optionDefinitions);
 const { env = '.env' } = options;
 
@@ -91,4 +91,5 @@ module.exports = {
     addVersionToEnvFile,
     stashExistingEnvFiles,
     replaceModifiedEnvFiles,
+    options,
 };
