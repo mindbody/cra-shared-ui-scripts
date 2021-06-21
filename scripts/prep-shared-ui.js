@@ -59,6 +59,7 @@ function canDeployCurrentVersion() {
             const request = await fetch(`${cdn}/${version}/app.js`);
 
             console.log(`=== response ===`)
+            console.log(`Status: ${request.status}`);
             console.log(JSON.stringify(request, null, 2));
 
             resolve(request.status === 404);
