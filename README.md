@@ -42,7 +42,7 @@ _Note that the `finalize-shared-ui` will also copy over a `CHANGELOG.md` file so
 
 ## Recommendations
 
-You want to get started using this without worrying about setting it up when you're starting a new project? Use our create react app template `create-react-app some-app-name --template mb-shared-ui` then follow the steps in the readme to get started.
+You want to get started using this without worrying about setting it up when you're starting a new project? Use our [create react app template and follow the steps in the readme](https://github.com/mindbody/cra-template-mb-ui) to get started.
 
 ## Other
 
