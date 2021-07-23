@@ -38,7 +38,7 @@ function addVersionToEnvFile() {
             const cdn = userEnv.match(/PUBLIC_URL=.*/)[0];
 
             // overwrite the root .env file with the file from the temp folder
-            await fs.writeFile(`${userDir}/.env`, userEnv.replace(cdn, `${cdn}${version}/`));
+            await fs.writeFile(`${userDir}/${env}`, userEnv.replace(cdn, `${cdn}${version}/`));
             resolve(cdn);
         } catch (e) {
             console.error(e);
