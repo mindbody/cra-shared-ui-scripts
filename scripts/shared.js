@@ -16,7 +16,7 @@ function getEnvironmentCdn() {
                 .replace(/PUBLIC_URL=/, '')
                 .trim();
 
-            console.log(`=== PUBLIC_URL found without version number: "${cdn}" ===`)
+            console.log(`=== PUBLIC_URL found: "${cdn}" ===`)
 
             resolve(cdn);
         } catch (e) {
@@ -38,7 +38,18 @@ function addVersionToEnvFile() {
             const cdn = userEnv.match(/PUBLIC_URL=.*/)[0];
 
             // overwrite the root .env file with the file from the temp folder
-            await fs.writeFile(`${userDir}/${env}`, userEnv.replace(cdn, `${cdn}${version}/`));
+            try {
+              await fs.writeFile(`${userDir}/.env`, userEnv.replace(cdn, `${cdn}${version}/`));
+            } catch (e) {
+              console.log('Error happened while writing to env file', e);
+            }
+
+            try {
+              await fs.writeFile(`${userDir}/${env}`, userEnv.replace(cdn, `${cdn}${version}/`));
+            } catch (e) {
+              console.log(`Error happened while writing to ${env} file`, e);
+            }
+
             resolve(cdn);
         } catch (e) {
             console.error(e);
@@ -74,7 +85,7 @@ async function stashExistingEnvFiles() {
         } catch (e) {
             console.error(e);
             console.error('=== Failed to copy environment files ===');
-            process.exit(1); 
+            process.exit(1);
         }
     });
 }
@@ -85,9 +96,12 @@ async function replaceModifiedEnvFiles() {
         const userDir = process.cwd();
 
         // replace modified env file with cloned env file
-        // we only need to do it to this file because we only ever modify the root .env file
         try {
             await fs.copyFile(`${userDir}/__temp/.env`, `${userDir}/.env`);
+        } catch (e) {}
+
+        try {
+            await fs.copyFile(`${userDir}/__temp/${env}`, `${userDir}/${env}`);
         } catch (e) {}
 
         try {
